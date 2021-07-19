@@ -20,17 +20,25 @@ loop do
   product = gets.chomp
   break if product == 'quit'
   if products.keys.include?(product.to_sym)
-    itens << product
+    puts "Quantity?"
+    quantity = gets.chomp.to_i
+    itens << {product.to_sym => quantity}
   else
     puts "Sorry, we don't have #{product} today.."
   end
 end
+
 sum = 0
+puts "------BILL-----"
 itens.each do |item|
-  sum += products[item.to_sym]
+  product = item.keys[0]
+  price = products[product]
+  quantity = item.values[0]
+  subtotal = price * quantity
+  puts "#{product}: #{quantity} X #{price} = #{subtotal}"
+  sum += subtotal
 end
 
 # Ao terminar de comprar mostrar o total
-puts "------BILL-----"
 puts "Total R$ #{sum}"
 puts "-" * 20
